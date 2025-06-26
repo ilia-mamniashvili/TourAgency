@@ -21,5 +21,7 @@ namespace TourAgency.DTO
 
         [Required]
         public int CityId { get; set; }
+        public bool IsActive { get; set; } = true;
+
     }
 }

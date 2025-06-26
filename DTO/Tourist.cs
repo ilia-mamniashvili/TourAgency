@@ -18,5 +18,7 @@ namespace TourAgency.DTO
         public string PhoneNumber { get; set; } = null!;
 
         public List<TouristTour> TourHistory { get; set; } = new();
+        public bool IsActive { get; set; } = true;
+
     }
 }

@@ -11,5 +11,7 @@ namespace TourAgency.DTO
 
         [Required]
         public int CountryId { get; set; }
+        public bool IsActive { get; set; } = true;
+
     }
 }
