@@ -1,6 +1,6 @@
 ﻿namespace TourAgency.DTO
 {
-    public class TouristTour
+    public sealed class TouristTour
     {
         public string TourCode { get; set; } = null!;
 

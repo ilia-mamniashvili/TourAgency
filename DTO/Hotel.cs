@@ -10,17 +10,16 @@ public sealed class Hotel
     [Required]
     public string Name { get; set; } = null!;
 
-    [Range(1, 5)]
-    public byte Stars { get; set; } // Move to enum if needed
+    public StarRating Star { get; set; }
 
     [Required]
     public decimal DailyPrice { get; set; }
 
     public bool IncludesMeal { get; set; }
 
-    public string AdditionalServices { get; set; } // Move to a separate class and make many-to-many if needed
+    public ICollection<Service> AdditionalServices { get; set; } = new List<Service>();
 
-    public bool IsActive { get; set; } = true;
+    public EntityStatus Status { get; set; }
 
     [Required]
     public City City { get; set; } = null!;

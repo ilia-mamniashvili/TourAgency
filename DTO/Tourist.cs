@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DTO;
+using System.ComponentModel.DataAnnotations;
 
 namespace TourAgency.DTO
 {
 
-    public class Tourist
+    public sealed class Tourist
     {
         [Required]
         [StringLength(11)]
@@ -15,10 +16,10 @@ namespace TourAgency.DTO
 
         public DateTime BirthDate { get; set; }
 
+        public EntityStatus Status { get; set; }
         public string PhoneNumber { get; set; } = null!;
 
         public List<TouristTour> TourHistory { get; set; } = new();
-        public bool IsActive { get; set; } = true;
 
     }
 }

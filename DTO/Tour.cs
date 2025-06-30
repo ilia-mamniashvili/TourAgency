@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DTO;
+using System.ComponentModel.DataAnnotations;
 
 namespace TourAgency.DTO
 {
@@ -13,11 +14,7 @@ namespace TourAgency.DTO
         [Required]
         public int DurationDays { get; set; }
 
-        public bool IsActive { get; set; } = true;
-
-        public DateTime CreateDate { get; set; } = DateTime.UtcNow;
-
-        public DateTime UpdateDate { get; set; } = DateTime.UtcNow;
+        public EntityStatus Status { get; set; }
 
         [Required]
         public decimal TotalPrice { get; set; }

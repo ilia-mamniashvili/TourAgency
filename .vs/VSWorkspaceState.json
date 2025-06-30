@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\DTO"
   ],
-  "SelectedNode": "\\TourAgency.sln",
+  "SelectedNode": "\\DTO\\Country.cs",
   "PreviewInSolutionExplorer": false
 }

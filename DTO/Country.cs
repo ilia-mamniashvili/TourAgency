@@ -16,8 +16,7 @@ public sealed class Country
     [Required]
     public byte[] Flag { get; set; } = null!;
 
-    // Move this to complex type, also add there create date, update date, etc.
-    public bool IsActive { get; set; } = true;
+    public EntityStatus Status { get; set; }
 
     public ICollection<City>? Cities { get; set; }
 }

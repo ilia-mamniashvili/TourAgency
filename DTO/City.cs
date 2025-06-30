@@ -15,7 +15,7 @@ public sealed class City
     [Required]
     public string IsoCode { get; set; } = null!;
 
-    public bool IsActive { get; set; } = true;
+    public EntityStatus Status { get; set; }
 
     [Required]
     public Country Country { get; set; } = null!;
