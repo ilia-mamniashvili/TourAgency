@@ -1,11 +1,12 @@
-﻿using DTO;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace TourAgency.DTO
+namespace DTO
 {
-
     public sealed class Tourist
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         [StringLength(11)]
         public string PersonalNumber { get; set; } = null!;
@@ -16,10 +17,10 @@ namespace TourAgency.DTO
 
         public DateTime BirthDate { get; set; }
 
-        public EntityStatus Status { get; set; }
+        public EntityStatus Status { get; set; } = null!;
+
         public string PhoneNumber { get; set; } = null!;
 
-        public List<TouristTour> TourHistory { get; set; } = new();
-
+        public ICollection<TourBooking>? TourHistory { get; set; }
     }
 }

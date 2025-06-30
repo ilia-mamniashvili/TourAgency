@@ -1,24 +1,34 @@
-﻿using DTO;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace TourAgency.DTO
+namespace DTO
 {
     public class Tour
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         [StringLength(5)]
         public string Code { get; set; } = null!;
 
         public string Name { get; set; } = null!;
 
+        public string? Description { get; set; }
+
+        [Required]
+        public DateTime StartDate { get; set; }
+
+        [Required]
+        public DateTime EndDate { get; set; }
+
         [Required]
         public int DurationDays { get; set; }
 
-        public EntityStatus Status { get; set; }
+        public EntityStatus Status { get; set; } = null!;
 
         [Required]
         public decimal TotalPrice { get; set; }
 
-        public List<TourCity> Cities { get; set; } = new();
+        public ICollection<TourItem>? Cities { get; set; }
     }
 }

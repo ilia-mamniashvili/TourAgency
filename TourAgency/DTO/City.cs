@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TourAgency.DTO;
 
 namespace DTO;
 
@@ -15,7 +14,7 @@ public sealed class City
     [Required]
     public string IsoCode { get; set; } = null!;
 
-    public EntityStatus Status { get; set; }
+    public EntityStatus Status { get; set; } = null!;
 
     [Required]
     public Country Country { get; set; } = null!;

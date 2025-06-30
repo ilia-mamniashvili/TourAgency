@@ -16,7 +16,7 @@ public sealed class Country
     [Required]
     public byte[] Flag { get; set; } = null!;
 
-    public EntityStatus Status { get; set; }
+    public EntityStatus Status { get; set; } = null!;
 
     public ICollection<City>? Cities { get; set; }
 }

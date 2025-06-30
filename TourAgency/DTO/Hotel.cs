@@ -17,10 +17,10 @@ public sealed class Hotel
 
     public bool IncludesMeal { get; set; }
 
-    public ICollection<Service> AdditionalServices { get; set; } = new List<Service>();
-
-    public EntityStatus Status { get; set; }
+    public EntityStatus Status { get; set; } = null!;
 
     [Required]
     public City City { get; set; } = null!;
+
+    public ICollection<Service>? AdditionalServices { get; set; }
 }
