@@ -1,27 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TourAgency.DTO
+namespace DTO;
+
+public sealed class Hotel
 {
-    public class Hotel
-    {
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; } = null!;
+    [Required]
+    public string Name { get; set; } = null!;
 
-        [Range(1, 5)]
-        public int Stars { get; set; }
+    [Range(1, 5)]
+    public byte Stars { get; set; } // Move to enum if needed
 
-        [Required]
-        public decimal DailyPrice { get; set; }
+    [Required]
+    public decimal DailyPrice { get; set; }
 
-        public bool IncludesMeal { get; set; }
+    public bool IncludesMeal { get; set; }
 
-        public string AdditionalServices { get; set; } = ""; // Comma-separated
+    public string AdditionalServices { get; set; } // Move to a separate class and make many-to-many if needed
 
-        [Required]
-        public int CityId { get; set; }
-        public bool IsActive { get; set; } = true;
+    public bool IsActive { get; set; } = true;
 
-    }
+    [Required]
+    public City City { get; set; } = null!;
 }

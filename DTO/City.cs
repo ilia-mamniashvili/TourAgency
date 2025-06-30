@@ -1,17 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TourAgency.DTO;
 
-namespace TourAgency.DTO
+namespace DTO;
+
+public sealed class City
 {
-    public class City
-    {
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; } = null!;
+    [Required]
+    [MaxLength(50)]
+    public string Name { get; set; } = null!;
 
-        [Required]
-        public int CountryId { get; set; }
-        public bool IsActive { get; set; } = true;
+    [Required]
+    public string IsoCode { get; set; } = null!;
 
-    }
+    public bool IsActive { get; set; } = true;
+
+    [Required]
+    public Country Country { get; set; } = null!;
+
+    public ICollection<Hotel>? Hotels { get; set; }
 }

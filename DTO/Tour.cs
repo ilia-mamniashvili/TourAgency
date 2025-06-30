@@ -16,7 +16,7 @@ namespace TourAgency.DTO
         public bool IsActive { get; set; } = true;
 
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
-        
+
         public DateTime UpdateDate { get; set; } = DateTime.UtcNow;
 
         [Required]

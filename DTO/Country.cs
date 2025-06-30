@@ -1,15 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TourAgency.DTO
+namespace DTO;
+
+public sealed class Country
 {
-    public class Country
-    {
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [Required]
-        public string Name { get; set; } = null!;
+    [Required]
+    public string Name { get; set; } = null!;
 
-        public bool IsActive { get; set; } = true;
+    [Required]
+    public string IsoCode { get; set; } = null!;
 
-    }
+    [Required]
+    public byte[] Flag { get; set; } = null!;
+
+    // Move this to complex type, also add there create date, update date, etc.
+    public bool IsActive { get; set; } = true;
+
+    public ICollection<City>? Cities { get; set; }
 }
