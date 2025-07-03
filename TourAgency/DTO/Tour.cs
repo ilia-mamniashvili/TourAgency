@@ -1,34 +1,35 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DTO
+namespace DTO;
+
+public sealed class Tour
 {
-    public class Tour
-    {
-        [Key]
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [Required]
-        [StringLength(5)]
-        public string Code { get; set; } = null!;
+    [Required]
+    [Column(TypeName = "char(5)")]
+    public string Code { get; set; } = null!;
 
-        public string Name { get; set; } = null!;
+    [Required]
+    [MaxLength(100)]
+    public string Name { get; set; } = null!;
 
-        public string? Description { get; set; }
+    [MaxLength(500)]
+    public string? Description { get; set; }
 
-        [Required]
-        public DateTime StartDate { get; set; }
+    [Required]
+    public DateTime StartDate { get; set; }
 
-        [Required]
-        public DateTime EndDate { get; set; }
+    [Required]
+    public DateTime EndDate { get; set; }
 
-        [Required]
-        public int DurationDays { get; set; }
+    public EntityStatus Status { get; set; } = null!;
 
-        public EntityStatus Status { get; set; } = null!;
+    [Required]
+    [Column(TypeName = "money")]
+    public decimal TotalPrice { get; set; }
 
-        [Required]
-        public decimal TotalPrice { get; set; }
-
-        public ICollection<TourItem>? Cities { get; set; }
-    }
+    public ICollection<TourItem>? Cities { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DTO;
 
@@ -14,6 +15,7 @@ public sealed class Hotel
     public StarRating Star { get; set; }
 
     [Required]
+    [Column(TypeName = "smallmoney")]
     public decimal DailyPrice { get; set; }
 
     public bool IncludesMeal { get; set; }
