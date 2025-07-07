@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositories;
+
 public class TourAgencyDbContext : DbContext
 {
     public DbSet<City>? Cities { get; set; }
@@ -23,6 +24,6 @@ public class TourAgencyDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlServer("Server=.;Database=TourAgencyDb;Integrated Security = true;TrustServerCertificate=true");
+        optionsBuilder.UseSqlServer("Server=.;Database=TourAgencyDb2;Integrated Security = true;TrustServerCertificate=true");
     }
 }
