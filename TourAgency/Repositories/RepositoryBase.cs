@@ -27,12 +27,13 @@ public abstract class RepositoryBase<T> : IRepository<T> where T : class
 
     public IQueryable<T> Query(Expression<Func<T, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return _dbSet.Where(predicate);
     }
 
     public async Task<IQueryable<T>> QueryAsync(Expression<Func<T, bool>> predicate)
     {
-        throw new NotImplementedException();
+        await Task.CompletedTask;
+        return _dbSet.Where(predicate);
     }
 
     public void Insert(T entity)
