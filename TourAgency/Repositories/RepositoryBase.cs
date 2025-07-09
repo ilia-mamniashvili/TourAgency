@@ -36,31 +36,37 @@ public abstract class RepositoryBase<T> where T : class
 
     public void Insert(T entity)
     {
-        throw new NotImplementedException();
+        _dbSet.Add(entity);
+        _context.SaveChanges();
     }
 
     public async Task InsertAsync(T entity)
     {
-        throw new NotImplementedException();
+        await _dbSet.AddAsync(entity);
+        await _context.SaveChangesAsync();
     }
 
     public void Update(T entity)
     {
-        throw new NotImplementedException();
+        _dbSet.Update(entity);
+        _context.SaveChanges();
     }
 
     public async Task UpdateAsync(T entity)
     {
-        throw new NotImplementedException();
+        _dbSet.Update(entity);
+        await _context.SaveChangesAsync();
     }
 
     public void Delete(T entity)
     {
-        throw new NotImplementedException();
+        _dbSet.Remove(entity);
+        _context.SaveChanges();
     }
 
     public async Task DeleteAsync(T entity)
     {
-        throw new NotImplementedException();
+        _dbSet.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 }
