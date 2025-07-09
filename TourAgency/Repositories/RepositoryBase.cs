@@ -1,9 +1,10 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Repositories.Interfaces;
 
 namespace Repositories;
 
-public abstract class RepositoryBase<T> where T : class
+public abstract class RepositoryBase<T> : IRepository<T> where T : class
 {
     private readonly TourAgencyDbContext _context;
     private readonly DbSet<T> _dbSet;
