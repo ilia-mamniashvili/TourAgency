@@ -1,15 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\TourAgency",
-    "\\TourAgency\\DTO",
-    "\\TourAgency\\Repositories",
-    "\\TourAgency\\Repositories\\Interfaces",
-    "\\TourAgency\\Repositories\\Migrations",
-    "\\TourAgency\\Repositories\\Migrations\\TourAgency",
-    "\\TourAgency\\TourAgency.Database",
-    "\\TourAgency\\TourAgency.Database\\dbo"
+    ""
   ],
-  "SelectedNode": "\\TourAgency\\TourAgency.Database\\dbo\\sp_country.sql",
+  "SelectedNode": "\\TourAgency.sln",
   "PreviewInSolutionExplorer": false
 }
