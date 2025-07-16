@@ -12,8 +12,8 @@ namespace Repositories.Interfaces
 
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess);
-        void Rollback();
-        void Commit();
-    
+        Task RollbackAsync();
+        Task CommitAsync();
+
     }
 }

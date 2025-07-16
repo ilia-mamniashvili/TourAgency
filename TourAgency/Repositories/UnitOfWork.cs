@@ -1,48 +1,68 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Repositories;
-public class UnitOfWork : IUnitOfWork
+namespace Repositories
 {
-    private readonly TourAgencyDbContext _context;
-    private readonly IServiceProvider _serviceProvider;
-
-    //Constructor 
-    public UnitOfWork(TourAgencyDbContext context, IServiceProvider serviceProvider)
+    public class UnitOfWork : IUnitOfWork
     {
-        _context = context;
-        _serviceProvider = serviceProvider;
-    }
+        private readonly TourAgencyDbContext _context;
+        private readonly IServiceProvider _serviceProvider;
+        private IDbContextTransaction? _transaction;
 
-    public IRepository<T> Repository<T>() where T : class
-    {
-        return _serviceProvider.GetRequiredService<IRepository<T>>();
-    }
+        public UnitOfWork(TourAgencyDbContext context, IServiceProvider serviceProvider)
+        {
+            _context = context;
+            _serviceProvider = serviceProvider;
+        }
 
-    public async Task<int> SaveChangesAsync()
-    {
-        return await _context.SaveChangesAsync();
-    }
+        public IRepository<T> Repository<T>() where T : class
+        {
+            return _serviceProvider.GetRequiredService<IRepository<T>>();
+        }
 
-    public async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess)
-    {
-        return await _context.SaveChangesAsync(acceptAllChangesOnSuccess);
-    }
+        public async Task<int> SaveChangesAsync()
+        {
+            return await _context.SaveChangesAsync();
+        }
 
-    public void Commit() { }
+        public async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess)
+        {
+            return await _context.SaveChangesAsync(acceptAllChangesOnSuccess);
+        }
 
-    public void Rollback() { }
+        public async Task BeginTransactionAsync()
+        {
+            if (_transaction == null)
+            {
+                _transaction = await _context.Database.BeginTransactionAsync();
+            }
+        }
 
-    public void Dispose()
-    {
-        _context.Dispose();
+        public async Task CommitAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.CommitAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+        }
+
+        public async Task RollbackAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
     }
 }
-
-
