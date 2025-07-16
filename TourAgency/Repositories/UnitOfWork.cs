@@ -10,18 +10,17 @@ namespace Repositories
     {
         private readonly TourAgencyDbContext _context;
         private IDbContextTransaction? _transaction;
-        private bool _disposed;
 
         //Lazy ლოგიკის იმპლემენტაცია
-        private Lazy<ICityRepository> _city;
-        private Lazy<ICountryRepository> _country;
-        private Lazy<IEntityStatusRepository> _entityStatus;
-        private Lazy<IHotelRepository> _hotel;
-        private Lazy<IServiceRepository> _service;
-        private Lazy<ITourBookingRepository> _tourBooking;
-        private Lazy<ITouristRepository> _tourist;
-        private Lazy<ITourItemRepository> _tourItem;
-        private Lazy<ITourRepository> _tour;
+        private readonly Lazy<ICityRepository> _city;
+        private readonly Lazy<ICountryRepository> _country;
+        private readonly Lazy<IEntityStatusRepository> _entityStatus;
+        private readonly Lazy<IHotelRepository> _hotel;
+        private readonly Lazy<IServiceRepository> _service;
+        private readonly Lazy<ITourBookingRepository> _tourBooking;
+        private readonly Lazy<ITouristRepository> _tourist;
+        private readonly Lazy<ITourItemRepository> _tourItem;
+        private readonly Lazy<ITourRepository> _tour;
 
         public ICityRepository City => _city.Value;
         public ICountryRepository Country => _country.Value;
