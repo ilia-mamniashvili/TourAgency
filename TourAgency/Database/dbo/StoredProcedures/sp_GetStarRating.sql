@@ -8,10 +8,10 @@ BEGIN
         RatingID,
         RatingValue,
         RatingDescription,
-        IsActive
+        Status_IsActive
     FROM
         StarRating
     WHERE
         RatingID = @RatingID
-        AND IsActive = 1;
+        AND Status_IsActive = 1;
 END;

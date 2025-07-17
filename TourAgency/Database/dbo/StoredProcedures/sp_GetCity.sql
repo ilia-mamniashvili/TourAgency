@@ -8,12 +8,12 @@ BEGIN
         c.CityName,
         c.CountryID,
         co.CountryName, -- Include country name for context
-        c.IsActive
+        c.Status_IsActive
     FROM
         City c
     INNER JOIN
         Country co ON c.CountryID = co.CountryID
     WHERE
         c.CityID = @CityID
-        AND c.IsActive = 1;
+        AND c.Status_IsActive = 1;
 END;

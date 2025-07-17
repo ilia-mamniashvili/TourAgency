@@ -11,7 +11,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO TourBooking (TouristID, TourID, BookingDate, NumberOfAdults, NumberOfChildren, TotalPrice, PaymentStatus, StatusID, IsActive)
+    INSERT INTO TourBooking (TouristID, TourID, BookingDate, NumberOfAdults, NumberOfChildren, TotalPrice, PaymentStatus, StatusID, Status_IsActive)
     VALUES (@TouristID, @TourID, @BookingDate, @NumberOfAdults, @NumberOfChildren, @TotalPrice, @PaymentStatus, @StatusID, 1); -- New bookings are active by default
 
     SELECT SCOPE_IDENTITY() AS NewBookingID;

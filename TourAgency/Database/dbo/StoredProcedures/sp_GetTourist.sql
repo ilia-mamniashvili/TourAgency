@@ -14,12 +14,12 @@ BEGIN
         t.ContactNumber,
         t.NationalityCountryID,
         c.CountryName AS NationalityCountryName, -- Include Nationality Country Name
-        t.IsActive
+        t.Status_IsActive
     FROM
         Tourist t
     INNER JOIN
         Country c ON t.NationalityCountryID = c.CountryID
     WHERE
         t.TouristID = @TouristID
-        AND t.IsActive = 1;
+        AND t.Status_IsActive = 1;
 END;

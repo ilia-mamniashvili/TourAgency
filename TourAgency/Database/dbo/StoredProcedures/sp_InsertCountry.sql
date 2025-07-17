@@ -1,4 +1,4 @@
-﻿﻿CREATE PROCEDURE sp_InsertCountry
+﻿CREATE PROCEDURE sp_InsertCountry
     @Name NVARCHAR(100),
     @ISOCode NVARCHAR(3),
 	@CountryID INT OUT

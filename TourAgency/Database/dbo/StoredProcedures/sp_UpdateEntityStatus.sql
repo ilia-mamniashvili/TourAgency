@@ -6,7 +6,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF NOT EXISTS(SELECT 1 FROM EntityStatus WHERE StatusID = @StatusID AND IsActive = 1)
+    IF NOT EXISTS(SELECT 1 FROM EntityStatus WHERE StatusID = @StatusID AND Status_IsActive = 1)
     BEGIN
         RAISERROR('Record was not found or is inactive', 16, 1);
         RETURN 1;

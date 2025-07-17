@@ -9,7 +9,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Hotel (HotelName, CityID, StarRatingID, Address, ContactNumber, Website, IsActive)
+    INSERT INTO Hotel (HotelName, CityID, StarRatingID, Address, ContactNumber, Website, Status_IsActive)
     VALUES (@HotelName, @CityID, @StarRatingID, @Address, @ContactNumber, @Website, 1); -- New hotels are active by default
 
     SELECT SCOPE_IDENTITY() AS NewHotelID;

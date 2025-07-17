@@ -4,5 +4,5 @@ AS
 BEGIN
     SELECT * 
     FROM Countries 
-    WHERE CountryID = @CountryID AND IsActive = 1;
+    WHERE Id = @CountryID AND Status_IsActive = 1;
 END

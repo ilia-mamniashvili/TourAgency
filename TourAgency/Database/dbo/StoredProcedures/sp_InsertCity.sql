@@ -4,7 +4,7 @@
 AS
 BEGIN
     SET NOCOUNT ON; 
-    INSERT INTO City (CityName, CountryID, IsActive)
+    INSERT INTO City (CityName, CountryID, Status_IsActive)
     VALUES (@CityName, @CountryID, 1); 
 
     SELECT SCOPE_IDENTITY() AS NewCityID;

@@ -4,15 +4,15 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF NOT EXISTS(SELECT 1 FROM Tour WHERE TourID = @TourID AND IsActive = 1)
+    IF NOT EXISTS(SELECT 1 FROM Tour WHERE Id = @TourID AND Status_IsActive = 1)
     BEGIN
         RAISERROR('Record was not found or is already inactive', 16, 1);
         RETURN 1;
     END
 
     UPDATE Tour
-    SET IsActive = 0
-    WHERE TourID = @TourID;
+    SET Status_IsActive = 0
+    WHERE Id = @TourID;
 
     RETURN 0;
 END;

@@ -15,7 +15,7 @@ BEGIN
         h.Address,
         h.ContactNumber,
         h.Website,
-        h.IsActive
+        h.Status_IsActive
     FROM
         Hotel h
     INNER JOIN
@@ -24,5 +24,5 @@ BEGIN
         StarRating sr ON h.StarRatingID = sr.RatingID
     WHERE
         h.HotelID = @HotelID
-        AND h.IsActive = 1;
+        AND h.Status_IsActive = 1;
 END;

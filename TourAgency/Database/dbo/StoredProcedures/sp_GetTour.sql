@@ -16,7 +16,7 @@ BEGIN
         t.EndDate,
         t.StatusID,
         es.StatusName AS TourStatusName,
-        t.IsActive
+        t.Status_IsActive
     FROM
         Tour t
     INNER JOIN
@@ -25,5 +25,5 @@ BEGIN
         EntityStatus es ON t.StatusID = es.StatusID
     WHERE
         t.TourID = @TourID
-        AND t.IsActive = 1;
+        AND t.Status_IsActive = 1;
 END;

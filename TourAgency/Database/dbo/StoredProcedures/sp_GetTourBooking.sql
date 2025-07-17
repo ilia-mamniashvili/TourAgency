@@ -18,7 +18,7 @@ BEGIN
         tb.PaymentStatus,
         tb.StatusID,
         es.StatusName AS BookingStatusName, -- Include Booking Status Name
-        tb.IsActive
+        tb.Status_IsActive
     FROM
         TourBooking tb
     INNER JOIN
@@ -29,5 +29,5 @@ BEGIN
         EntityStatus es ON tb.StatusID = es.StatusID
     WHERE
         tb.BookingID = @BookingID
-        AND tb.IsActive = 1;
+        AND tb.Status_IsActive = 1;
 END;

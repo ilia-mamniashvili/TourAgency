@@ -15,7 +15,7 @@ BEGIN
         ti.ExpiryDate,
         ti.StatusID,
         es.StatusName AS ItemStatusName,
-        ti.IsActive
+        ti.Status_IsActive
     FROM
         TourItem ti
     INNER JOIN
@@ -24,5 +24,5 @@ BEGIN
         EntityStatus es ON ti.StatusID = es.StatusID
     WHERE
         ti.TourItemID = @TourItemID
-        AND ti.IsActive = 1;
+        AND ti.Status_IsActive = 1;
 END;

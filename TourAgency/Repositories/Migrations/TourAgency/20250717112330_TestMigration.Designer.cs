@@ -13,15 +13,15 @@ using Repositories;
 namespace Repositories.Migrations.TourAgency
 {
     [DbContext(typeof(TourAgencyDbContext))]
-    [Migration("20250706195259_AddDbTables")]
-    partial class AddDbTables
+    [Migration("20250717112330_TestMigration")]
+    partial class TestMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.17")
+                .HasAnnotation("ProductVersion", "9.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

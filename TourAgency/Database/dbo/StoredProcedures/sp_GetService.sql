@@ -9,10 +9,10 @@ BEGIN
         ServiceName,
         Description,
         Price,
-        IsActive
+        Status_IsActive
     FROM
         Service
     WHERE
         ServiceID = @ServiceID
-        AND IsActive = 1;
+        AND Status_IsActive = 1;
 END;

@@ -10,7 +10,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Tourist (FirstName, LastName, DateOfBirth, PassportNumber, Email, ContactNumber, NationalityCountryID, IsActive)
+    INSERT INTO Tourist (FirstName, LastName, DateOfBirth, PassportNumber, Email, ContactNumber, NationalityCountryID, Status_IsActive)
     VALUES (@FirstName, @LastName, @DateOfBirth, @PassportNumber, @Email, @ContactNumber, @NationalityCountryID, 1); -- New tourists are active by default
 
     SELECT SCOPE_IDENTITY() AS NewTouristID;

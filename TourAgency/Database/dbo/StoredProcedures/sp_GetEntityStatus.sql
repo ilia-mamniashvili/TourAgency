@@ -8,10 +8,10 @@ BEGIN
         StatusID,
         StatusName,
         Description,
-        IsActive
+        Status_IsActive
     FROM
         EntityStatus
     WHERE
         StatusID = @StatusID
-        AND IsActive = 1;
+        AND Status_IsActive = 1;
 END;

@@ -9,7 +9,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO TourItem (TouristID, ItemName, Quantity, IssueDate, ExpiryDate, StatusID, IsActive)
+    INSERT INTO TourItem (TouristID, ItemName, Quantity, IssueDate, ExpiryDate, StatusID, Status_IsActive)
     VALUES (@TouristID, @ItemName, @Quantity, @IssueDate, @ExpiryDate, @StatusID, 1); -- New items are active by default
 
     SELECT SCOPE_IDENTITY() AS NewTourItemID;
