@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore.Storage;
 using Repositories.Interfaces;
-using System.Data;
 
 namespace Repositories
 {
@@ -33,10 +30,10 @@ namespace Repositories
         public ITourRepository Tour => _tour.Value;
 
         public UnitOfWork(TourAgencyDbContext context)
-            
+
         {
             _context = context;
-            
+
             _city = new Lazy<ICityRepository>(() => new CityRepository(_context));
             _country = new Lazy<ICountryRepository>(() => new CountryRepository(_context));
             _entityStatus = new Lazy<IEntityStatusRepository>(() => new EntityStatusRepository(_context));
@@ -46,6 +43,11 @@ namespace Repositories
             _tourist = new Lazy<ITouristRepository>(() => new TouristRepository(_context));
             _tourItem = new Lazy<ITourItemRepository>(() => new TourItemRepository(_context));
             _tour = new Lazy<ITourRepository>(() => new TourRepository(_context));
+        }
+
+        public int SaveChanges()
+        {
+            return _context.SaveChanges();
         }
 
         public async Task<int> SaveChangesAsync()
@@ -58,32 +60,63 @@ namespace Repositories
             return await _context.SaveChangesAsync(acceptAllChangesOnSuccess);
         }
 
+        public void BeginTransaction()
+        {
+            if (_transaction != null)
+                throw new ArgumentException("Transaction is already started");
+
+            _transaction = _context.Database.BeginTransaction();
+        }
+
         public async Task BeginTransactionAsync()
         {
+            if (_transaction != null)
+                throw new ArgumentException("Transaction is already started");
+
+            _transaction = await _context.Database.BeginTransactionAsync();
+
+        }
+
+        public void Commit()
+        {
             if (_transaction == null)
-            {
-                _transaction = await _context.Database.BeginTransactionAsync();
-            }
+                throw new ArgumentException("Transaction is not started");
+
+            _transaction?.Commit();
+            _transaction?.Dispose();
+            _transaction = null;
         }
 
         public async Task CommitAsync()
         {
-            if (_transaction != null)
-            {
-                await _transaction.CommitAsync();
-                await _transaction.DisposeAsync();
-                _transaction = null;
-            }
+            if (_transaction == null)
+                throw new ArgumentException("Transaction is not started");
+
+            await _transaction.CommitAsync();
+            await _transaction.DisposeAsync();
+            _transaction = null;
+
+        }
+
+        public void RollBack()
+        {
+            if (_transaction == null)
+                throw new ArgumentException("Transaction is not started");
+
+            _transaction?.Rollback();
+            _transaction?.Dispose();
+            _transaction = null;
         }
 
         public async Task RollbackAsync()
         {
-            if (_transaction != null)
-            {
-                 await _transaction.RollbackAsync();
-                 await _transaction.DisposeAsync();
-                _transaction = null;
-            }
+            if (_transaction == null)
+                throw new ArgumentException("Transaction is not started");
+
+            await _transaction.RollbackAsync();
+            await _transaction.DisposeAsync();
+            _transaction = null;
+
         }
 
         public void Dispose()
