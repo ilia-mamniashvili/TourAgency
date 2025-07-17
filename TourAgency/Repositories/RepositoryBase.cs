@@ -32,7 +32,7 @@ public abstract class RepositoryBase<T> : IRepository<T> where T : class
 
     public async Task<IQueryable<T>> QueryAsync(Expression<Func<T, bool>> predicate)
     {
-        await Task.CompletedTask;
+        
         return _dbSet.Where(predicate);
     }
 

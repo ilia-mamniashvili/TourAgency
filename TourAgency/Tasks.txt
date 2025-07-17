@@ -1,0 +1,5 @@
+1. Create UnitOfWork class in the project.
+2. Add Transaction support to UnitOfWork.
+3. From ANY Project Requirement Create Database view.
+4. From ANY Project Requirement Create Database Procedure.
+5. Create Repository UnitTests.

@@ -1,7 +1,7 @@
 ﻿using DTO;
 using Repositories.Interfaces;
 
-namespace Repositories.Implementations;
+namespace Repositories;
 
 public class TourRepository : RepositoryBase<Tour>, ITourRepository
 {
