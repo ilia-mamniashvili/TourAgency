@@ -7,7 +7,7 @@ namespace Repositories.Interfaces
         T? GetById(int id);
         Task<T?> GetByIdAsync(int id);
         IQueryable<T> Query(Expression<Func<T, bool>> predicate);
-        Task<IQueryable<T>> QueryAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> predicate);
         void Insert(T entity);
         Task InsertAsync(T entity);
         void Update(T entity);

@@ -30,45 +30,39 @@ public abstract class RepositoryBase<T> : IRepository<T> where T : class
         return _dbSet.Where(predicate);
     }
 
-    public async Task<IQueryable<T>> QueryAsync(Expression<Func<T, bool>> predicate)
+    public async Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> predicate)
     {
         
-        return _dbSet.Where(predicate);
+        return await _dbSet.Where(predicate).ToListAsync();
     }
 
     public void Insert(T entity)
     {
         _dbSet.Add(entity);
-        _context.SaveChanges();
     }
 
     public async Task InsertAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
-        await _context.SaveChangesAsync();
     }
 
     public void Update(T entity)
     {
         _dbSet.Update(entity);
-        _context.SaveChanges();
     }
-
+    //Fix this 
     public async Task UpdateAsync(T entity)
     {
         _dbSet.Update(entity);
-        await _context.SaveChangesAsync();
     }
 
     public void Delete(T entity)
     {
         _dbSet.Remove(entity);
-        _context.SaveChanges();
     }
-
+    //Fix this
     public async Task DeleteAsync(T entity)
     {
         _dbSet.Remove(entity);
-        await _context.SaveChangesAsync();
     }
 }

@@ -8,6 +8,8 @@ namespace Repositories.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        int SaveChanges();
+
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess);
         Task RollbackAsync();
