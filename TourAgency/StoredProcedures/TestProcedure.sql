@@ -1,0 +1,5 @@
+﻿CREATE PROCEDURE TestProcedure 
+AS
+BEGIN
+	SELECT * FROM Countries;
+END;

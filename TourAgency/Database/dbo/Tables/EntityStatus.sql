@@ -1,5 +1,0 @@
-﻿CREATE TABLE EntityStatus (
-    StatusID INT PRIMARY KEY IDENTITY(1,1),
-    StatusName NVARCHAR(50) NOT NULL UNIQUE,
-    Description NVARCHAR(255)
-);

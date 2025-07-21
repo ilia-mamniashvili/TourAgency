@@ -11,7 +11,7 @@ namespace Repositories.Migrations.TourAgency
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            foreach (var path in Directory.GetFiles(@"..\Database\dbo\StoredProcedures", "*.sql"))
+            foreach (var path in Directory.GetFiles(@"..\StoredProcedures", "*.sql"))
             {
                 string sql = File.ReadAllText(path);
                 migrationBuilder.Sql(sql);
@@ -21,7 +21,7 @@ namespace Repositories.Migrations.TourAgency
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            foreach (var path in Directory.GetFiles(@"..\Database\dbo\StoredProcedures", "*.sql"))
+            foreach (var path in Directory.GetFiles(@"..\StoredProcedures", "*.sql"))
             {
                 var procName = Path.GetFileNameWithoutExtension(path);
                 migrationBuilder.Sql($"DROP PROCEDURE IF EXISTS [dbo].[{procName}]");
