@@ -8,15 +8,14 @@ namespace Tests;
 //3. Create method for deleting test data
 //4. Create update and delete test
 //5. Create negative tests
-public class CountryRepositoryTests
+public class CountryRepositoryTests : BaseRepositoryTests<Country>
 {
-    private IUnitOfWork _unitOfWork;
-       
+    private ICountryRepository? _repository;
+
     [SetUp]
     public void Setup()
     {
-        // Initialize the UnitOfWork with a mock or real DbContext
-        _unitOfWork = new UnitOfWork(new TourAgencyDbContext());
+        _repository = _unitOfWork!.Country;
     }
 
     [Test]
@@ -29,19 +28,13 @@ public class CountryRepositoryTests
             Flag = null, // Assuming no flag is provided for this test
             Status = new EntityStatus()
         };
-        _unitOfWork.Country.Insert(country);
-        _unitOfWork.SaveChanges();
+        _repository?.Insert(country);
+        _unitOfWork!.SaveChanges();
 
         // Verify that the country was inserted
         var insertedCountry = _unitOfWork.Country.GetById(country.Id);
         Assert.IsNotNull(insertedCountry);
         Assert.That(insertedCountry.Name, Is.EqualTo("Test Country"));
         Assert.That(insertedCountry.IsoCode, Is.EqualTo("TST"));
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _unitOfWork?.Dispose();
     }
 }
