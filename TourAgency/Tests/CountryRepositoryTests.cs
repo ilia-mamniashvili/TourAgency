@@ -12,10 +12,10 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
 {
     private ICountryRepository? _repository;
 
-    [SetUp]
-    public void Setup()
+    public override void SetUp()
     {
-        _repository = _unitOfWork!.Country;
+        base.SetUp();
+        _repository = _unitOfWork!.CountryRepository;
     }
 
     [Test]
@@ -32,7 +32,7 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
         _unitOfWork!.SaveChanges();
 
         // Verify that the country was inserted
-        var insertedCountry = _unitOfWork.Country.GetById(country.Id);
+        var insertedCountry = _unitOfWork.CountryRepository.GetById(country.Id);
         Assert.IsNotNull(insertedCountry);
         Assert.That(insertedCountry.Name, Is.EqualTo("Test Country"));
         Assert.That(insertedCountry.IsoCode, Is.EqualTo("TST"));
@@ -54,15 +54,13 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
             _repository!.Insert(country);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
     public void TestUpdate_ShouldUpdate()
     {
         Country country = _repository!.GetById(Constants.UpdateTestID)!;
-        Assert.IsNotNull(country);
+        Assert.That(country, Is.Not.Null);
 
         country.Name = "Updated Name";
         country.IsoCode = "UPD";
@@ -70,9 +68,12 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
         _unitOfWork!.SaveChanges();
 
         Country updatedCountry = _repository!.GetById(Constants.UpdateTestID)!;
-        Assert.IsNotNull(updatedCountry);
-        Assert.That(country.Name, Is.EqualTo(updatedCountry.Name));
-        Assert.That(country.IsoCode, Is.EqualTo(updatedCountry.IsoCode));
+        Assert.Multiple(() =>
+        {
+            Assert.That(updatedCountry, Is.Not.Null);
+            Assert.That(country.Name, Is.EqualTo(updatedCountry.Name));
+            Assert.That(country.IsoCode, Is.EqualTo(updatedCountry.IsoCode));
+        });
     }
 
     [Test]
@@ -89,8 +90,6 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
             _repository.Update(country);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -122,7 +121,5 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
             _repository.Delete(country);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 }

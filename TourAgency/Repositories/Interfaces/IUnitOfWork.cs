@@ -9,7 +9,6 @@ namespace Repositories.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         int SaveChanges();
-        void RevertChanges();
         void BeginTransaction();
         void Commit();
         void Rollback();
@@ -19,15 +18,14 @@ namespace Repositories.Interfaces
         Task RollbackAsync();
         Task CommitAsync();
 
-        ICityRepository City { get; }
-        ICountryRepository Country { get; }
-        IEntityStatusRepository EntityStatus { get; }
-        IHotelRepository Hotel { get; }
-        IServiceRepository Service { get; }
-        ITourBookingRepository TourBooking { get; }
-        ITouristRepository Tourist { get; }
-        ITourItemRepository TourItem { get; }
-        ITourRepository Tour { get; }
+        ICityRepository CityRepository { get; }
+        ICountryRepository CountryRepository { get; }
+        IHotelRepository HotelRepository { get; }
+        IServiceRepository ServiceRepository { get; }
+        ITourBookingRepository TourBookingRepository { get; }
+        ITouristRepository TouristRepository { get; }
+        ITourItemRepository TourItemRepository { get; }
+        ITourRepository TourRepository { get; }
 
     }
 }

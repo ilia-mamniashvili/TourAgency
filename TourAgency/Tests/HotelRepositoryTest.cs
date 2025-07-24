@@ -7,10 +7,10 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
 {
     private IHotelRepository? _repository;
 
-    [SetUp]
-    public void Setup()
+    public override void SetUp()
     {
-        _repository = _unitOfWork!.Hotel;
+        base.SetUp();
+        _repository = _unitOfWork!.HotelRepository;
     }
 
     [Test]
@@ -21,14 +21,14 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
             Name = "Test Hotel",
             DailyPrice = 100.00m,
             IncludesMeal = true,
-            City = _unitOfWork!.City.GetById(1)!,
+            City = _unitOfWork!.CityRepository.GetById(1)!,
             Status = new EntityStatus()
         };
 
         _repository?.Insert(hotel);
         _unitOfWork!.SaveChanges();
 
-        Hotel? insertedHotel = _unitOfWork!.Hotel.GetById(hotel.Id);
+        Hotel? insertedHotel = _unitOfWork!.HotelRepository.GetById(hotel.Id);
         Assert.IsNotNull(insertedHotel);
         Assert.That(insertedHotel.Name, Is.EqualTo(hotel.Name));
         Assert.That(insertedHotel.DailyPrice, Is.EqualTo(hotel.DailyPrice));
@@ -44,7 +44,7 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
             Name = string.Empty,
             DailyPrice = 10.00m,
             IncludesMeal = false,
-            City = _unitOfWork!.City.GetById(0)!,
+            City = _unitOfWork!.CityRepository.GetById(0)!,
             Status = new EntityStatus()
         };
 
@@ -54,7 +54,6 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
             _unitOfWork!.SaveChanges();
         });
 
-        _unitOfWork.RevertChanges();
     }
 
     [Test]
@@ -71,7 +70,7 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
         _repository!.Update(hotel);
         _unitOfWork!.SaveChanges();
 
-        Hotel? updatedHotel = _unitOfWork!.Hotel.GetById(Constants.UpdateTestID);
+        Hotel? updatedHotel = _unitOfWork!.HotelRepository.GetById(Constants.UpdateTestID);
         Assert.IsNotNull(updatedHotel);
         Assert.That(updatedHotel.Name, Is.EqualTo("Updated Name"));
         Assert.That(updatedHotel.Star, Is.EqualTo(hotel.Star));
@@ -88,7 +87,7 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
         hotel.Name = string.Empty;
         hotel.DailyPrice = 250.00m;
         hotel.IncludesMeal = true;
-        City city = _unitOfWork!.City.GetById(0)!;
+        City city = _unitOfWork!.CityRepository.GetById(0)!;
 
         Assert.Throws<DbUpdateException>(() =>
         {
@@ -97,7 +96,6 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
             _unitOfWork!.SaveChanges();
         });
 
-        _unitOfWork.RevertChanges();
     }
 
     [Test]
@@ -109,7 +107,7 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
         _repository!.Delete(hotel);
         _unitOfWork!.SaveChanges();
 
-        Hotel? deletedHotel = _unitOfWork!.Hotel.GetById(Constants.DeleteTestID);
+        Hotel? deletedHotel = _unitOfWork!.HotelRepository.GetById(Constants.DeleteTestID);
         Assert.IsNull(deletedHotel, $"Record with Id {Constants.DeleteTestID} should not be retrieved");
     }
 
@@ -122,15 +120,14 @@ public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
         _repository!.Delete(hotel);
         _unitOfWork!.SaveChanges();
 
-        Hotel? deletedHotel = _unitOfWork!.Hotel.GetById(Constants.DeleteTestID2);
-        Assert.IsNotNull(deletedHotel, $"Record with Id {Constants.DeleteTestID2} should be retrieved, but it was deleted");
+        Hotel? deletedHotel = _unitOfWork!.HotelRepository.GetById(Constants.DeleteTestID2);
+        Assert.IsNull(deletedHotel, $"Record with Id {Constants.DeleteTestID2} should be retrieved, but it was deleted");
         Assert.Throws<DbUpdateConcurrencyException>(() =>
         {
-            _repository!.Delete(deletedHotel);
+            _repository!.Delete(hotel);
             _unitOfWork!.SaveChanges();
         });
 
-        _unitOfWork.RevertChanges();
     }
 }
 

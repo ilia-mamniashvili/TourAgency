@@ -11,7 +11,6 @@ namespace Repositories
         //Lazy ლოგიკის იმპლემენტაცია
         private readonly Lazy<ICityRepository> _city;
         private readonly Lazy<ICountryRepository> _country;
-        private readonly Lazy<IEntityStatusRepository> _entityStatus;
         private readonly Lazy<IHotelRepository> _hotel;
         private readonly Lazy<IServiceRepository> _service;
         private readonly Lazy<ITourBookingRepository> _tourBooking;
@@ -19,15 +18,14 @@ namespace Repositories
         private readonly Lazy<ITourItemRepository> _tourItem;
         private readonly Lazy<ITourRepository> _tour;
 
-        public ICityRepository City => _city.Value;
-        public ICountryRepository Country => _country.Value;
-        public IEntityStatusRepository EntityStatus => _entityStatus.Value;
-        public IHotelRepository Hotel => _hotel.Value;
-        public IServiceRepository Service => _service.Value;
-        public ITourBookingRepository TourBooking => _tourBooking.Value;
-        public ITouristRepository Tourist => _tourist.Value;
-        public ITourItemRepository TourItem => _tourItem.Value;
-        public ITourRepository Tour => _tour.Value;
+        public ICityRepository CityRepository => _city.Value;
+        public ICountryRepository CountryRepository => _country.Value;
+        public IHotelRepository HotelRepository => _hotel.Value;
+        public IServiceRepository ServiceRepository => _service.Value;
+        public ITourBookingRepository TourBookingRepository => _tourBooking.Value;
+        public ITouristRepository TouristRepository => _tourist.Value;
+        public ITourItemRepository TourItemRepository => _tourItem.Value;
+        public ITourRepository TourRepository => _tour.Value;
 
         public UnitOfWork(TourAgencyDbContext context)
 
@@ -36,7 +34,6 @@ namespace Repositories
 
             _city = new Lazy<ICityRepository>(() => new CityRepository(_context));
             _country = new Lazy<ICountryRepository>(() => new CountryRepository(_context));
-            _entityStatus = new Lazy<IEntityStatusRepository>(() => new EntityStatusRepository(_context));
             _hotel = new Lazy<IHotelRepository>(() => new HotelRepository(_context));
             _service = new Lazy<IServiceRepository>(() => new ServiceRepository(_context));
             _tourBooking = new Lazy<ITourBookingRepository>(() => new TourBookingRepository(_context));
@@ -48,11 +45,6 @@ namespace Repositories
         public int SaveChanges()
         {
             return _context.SaveChanges();
-        }
-
-        public void RevertChanges()
-        {
-            _context.ChangeTracker.Clear();
         }
 
         public async Task<int> SaveChangesAsync()

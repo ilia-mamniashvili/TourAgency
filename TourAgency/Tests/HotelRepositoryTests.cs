@@ -8,10 +8,10 @@ public class HotelRepositoryTests : BaseRepositoryTests<Hotel>
 {
     private IHotelRepository? _repository;
 
-    [SetUp]
-    public void Setup()
+    public override void SetUp()
     {
-        _repository = _unitOfWork!.Hotel;
+        base.SetUp();
+        _repository = _unitOfWork!.HotelRepository;
     }
 
     [Test]
@@ -24,7 +24,7 @@ public class HotelRepositoryTests : BaseRepositoryTests<Hotel>
             DailyPrice = 150,
             IncludesMeal = true,
             Status = new EntityStatus(),
-            City = _unitOfWork!.City.GetById(Constants.UpdateTestID)!
+            City = _unitOfWork!.CityRepository.GetById(Constants.UpdateTestID)!
         };
 
         _repository!.Insert(hotel);
@@ -47,7 +47,7 @@ public class HotelRepositoryTests : BaseRepositoryTests<Hotel>
             DailyPrice = 100,
             IncludesMeal = false,
             Status = new EntityStatus(),
-            City = _unitOfWork!.City.GetById(Constants.UpdateTestID)!
+            City = _unitOfWork!.CityRepository.GetById(Constants.UpdateTestID)!
         };
 
         Assert.Throws<DbUpdateException>(() =>
@@ -55,8 +55,6 @@ public class HotelRepositoryTests : BaseRepositoryTests<Hotel>
             _repository!.Insert(hotel);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -70,7 +68,7 @@ public class HotelRepositoryTests : BaseRepositoryTests<Hotel>
         hotel.IncludesMeal = false;
 
         _repository.Update(hotel);
-        _unitOfWork.SaveChanges();
+        _unitOfWork!.SaveChanges();
 
         Hotel? updatedHotel = _repository!.GetById(Constants.UpdateTestID)!;
         Assert.IsNotNull(updatedHotel);
@@ -90,10 +88,8 @@ public class HotelRepositoryTests : BaseRepositoryTests<Hotel>
         Assert.Throws<DbUpdateException>(() =>
         {
             _repository.Update(hotel);
-            _unitOfWork.SaveChanges();
+            _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -126,7 +122,5 @@ public class HotelRepositoryTests : BaseRepositoryTests<Hotel>
             _repository.Delete(hotel);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 }

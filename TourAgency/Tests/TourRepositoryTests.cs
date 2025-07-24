@@ -8,10 +8,10 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
 {
     private ITourRepository? _repository;
 
-    [SetUp]
-    public void Setup()
+    public override void SetUp()
     {
-        _repository = _unitOfWork!.Tour;
+        base.SetUp();
+        _repository = _unitOfWork!.TourRepository;
     }
 
     [Test]
@@ -29,7 +29,7 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
         _repository?.Insert(tour);
         _unitOfWork!.SaveChanges();
 
-        Tour? insertedTour = _unitOfWork!.Tour.GetById(tour.Id);
+        Tour? insertedTour = _unitOfWork!.TourRepository.GetById(tour.Id);
         Assert.IsNotNull(insertedTour);
         Assert.That(insertedTour.Name, Is.EqualTo(tour.Name));
         Assert.That(insertedTour.Description, Is.EqualTo(tour.Description));
@@ -55,14 +55,12 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
             _repository!.Insert(tour);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
     public void UpdateTest_ShouldUpdate()
     {
-        Tour tour = _unitOfWork!.Tour.GetById(Constants.UpdateTestID)!;
+        Tour tour = _unitOfWork!.TourRepository.GetById(Constants.UpdateTestID)!;
         Assert.IsNotNull(tour);
 
         tour.Name = "Updated Tour Name";
@@ -92,7 +90,6 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
             _repository.Update(tour);
             _unitOfWork!.SaveChanges();
         });
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -117,6 +114,5 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
             _repository.Delete(tour);
             _unitOfWork!.SaveChanges();
         });
-        _unitOfWork!.RevertChanges();
     }
 }

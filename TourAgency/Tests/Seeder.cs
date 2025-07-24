@@ -26,7 +26,8 @@ public class Seeder
         _context.Database.ExecuteSqlRaw("DELETE FROM Services");
         _context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('Services', RESEED, 0)");
     }
-    public void SeedBuilder()
+
+    public void SeedDatabase()
     {
         CountrySeedBuilder();
         CitySeedBuilder();
@@ -96,45 +97,46 @@ public class Seeder
     private List<City> CityBuilder()
     {
         return new List<City>
-    {
-        new City { Name = "Test City 1", Status = new EntityStatus(), IsoCode = "IO1" },
-        new City { Name = "Test City 2", Status = new EntityStatus(), IsoCode = "IO2" },
-        new City { Name = "Test City 3", Status = new EntityStatus(), IsoCode = "IO3" },
-        new City { Name = "Test City 4", Status = new EntityStatus(), IsoCode = "IO4" },
-        new City { Name = "Test City 5", Status = new EntityStatus(), IsoCode = "IO5" }
-    };
+        {
+            new City { Name = "Test City 1", Status = new EntityStatus(), IsoCode = "IO1" },
+            new City { Name = "Test City 2", Status = new EntityStatus(), IsoCode = "IO2" },
+            new City { Name = "Test City 3", Status = new EntityStatus(), IsoCode = "IO3" },
+            new City { Name = "Test City 4", Status = new EntityStatus(), IsoCode = "IO4" },
+            new City { Name = "Test City 5", Status = new EntityStatus(), IsoCode = "IO5" }
+        };
     }
+
 
     private List<Country> CountryBuilder()
     {
         return new List<Country>
-    {
-        new Country { Name = "Country", IsoCode = "Is1", Status = new EntityStatus() },
-        new Country { Name = "Country 2", IsoCode = "Is2", Status = new EntityStatus() },
-        new Country { Name = "Country 3", IsoCode = "Is3", Status = new EntityStatus() },
-        new Country { Name = "Country 4", IsoCode = "Is4", Status = new EntityStatus() },
-        new Country { Name = "Country 5", IsoCode = "Is5", Status = new EntityStatus() }
-    };
+        {
+            new Country { Name = "Country", IsoCode = "Is1", Status = new EntityStatus() },
+            new Country { Name = "Country 2", IsoCode = "Is2", Status = new EntityStatus() },
+            new Country { Name = "Country 3", IsoCode = "Is3", Status = new EntityStatus() },
+            new Country { Name = "Country 4", IsoCode = "Is4", Status = new EntityStatus() },
+            new Country { Name = "Country 5", IsoCode = "Is5", Status = new EntityStatus() }
+        };
     }
 
     private List<Hotel> HotelBuilder()
     {
         return new List<Hotel>
-    {
-        new Hotel { Name = "Hotel", DailyPrice = 54, Status = new EntityStatus(), IncludesMeal = true, Star = StarRating.Five},
-        new Hotel { Name = "Hotel 2", DailyPrice = 100, Status = new EntityStatus(), IncludesMeal = false, Star = StarRating.Four },
-        new Hotel { Name = "Hotel 3", DailyPrice = 150, Status = new EntityStatus(), IncludesMeal = true, Star = StarRating.Three },
-        new Hotel { Name = "Hotel 4", DailyPrice = 200, Status = new EntityStatus(), IncludesMeal = false, Star = StarRating.Two },
-        new Hotel { Name = "Hotel 5", DailyPrice = 250, Status = new EntityStatus(), IncludesMeal = true, Star = StarRating.One }
-    };
+        {
+            new Hotel { Name = "Hotel", DailyPrice = 54, Status = new EntityStatus(), IncludesMeal = true, Star = StarRating.Five},
+            new Hotel { Name = "Hotel 2", DailyPrice = 100, Status = new EntityStatus(), IncludesMeal = false, Star = StarRating.Four },
+            new Hotel { Name = "Hotel 3", DailyPrice = 150, Status = new EntityStatus(), IncludesMeal = true, Star = StarRating.Three },
+            new Hotel { Name = "Hotel 4", DailyPrice = 200, Status = new EntityStatus(), IncludesMeal = false, Star = StarRating.Two },
+            new Hotel { Name = "Hotel 5", DailyPrice = 250, Status = new EntityStatus(), IncludesMeal = true, Star = StarRating.One }
+        };
     }
 
     private List<Service> ServiceBuilder()
     {
         return new List<Service>
-    {
-        new Service { Name = "Wi-Fi", Status = new EntityStatus(), },
-        new Service { Name = "Television", Status = new EntityStatus(), },
-    };
+        {
+            new Service { Name = "Wi-Fi", Status = new EntityStatus(), },
+            new Service { Name = "Television", Status = new EntityStatus(), },
+        };
     }
 }

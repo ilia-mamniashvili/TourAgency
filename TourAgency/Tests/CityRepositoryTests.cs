@@ -9,10 +9,10 @@ public class CityRepositoryTests : BaseRepositoryTests<City>
 {
     private  ICityRepository? _repository;
 
-    [SetUp]
-    public void SetUp()
+    public override void SetUp()
     {
-        _repository = _unitOfWork!.City;
+        base.SetUp();
+        _repository = _unitOfWork!.CityRepository;
     }
 
     [Test]
@@ -22,7 +22,7 @@ public class CityRepositoryTests : BaseRepositoryTests<City>
         {
             Name = "Test Name",
             IsoCode = "TST",
-            Country = _unitOfWork!.Country.GetById(1)!,
+            Country = _unitOfWork!.CountryRepository.GetById(1)!,
             Status = new EntityStatus()
         };
 
@@ -42,7 +42,7 @@ public class CityRepositoryTests : BaseRepositoryTests<City>
         {
             Name = null!,
             IsoCode = "TSTI",
-            Country = _unitOfWork!.Country.GetById(0)!,
+            Country = _unitOfWork!.CountryRepository.GetById(0)!,
             Status = new EntityStatus()
         };
 
@@ -51,8 +51,6 @@ public class CityRepositoryTests : BaseRepositoryTests<City>
             _repository!.Insert(city);
             _unitOfWork.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -63,7 +61,7 @@ public class CityRepositoryTests : BaseRepositoryTests<City>
 
         city.Name = "Updated Name";
         city.IsoCode = "UPD";
-        city.Country = _unitOfWork!.Country.GetById(1)!;
+        city.Country = _unitOfWork!.CountryRepository.GetById(1)!;
         _repository.Update(city);
         _unitOfWork!.SaveChanges();
 
@@ -81,15 +79,13 @@ public class CityRepositoryTests : BaseRepositoryTests<City>
         Assert.IsNotNull(city);
         city.Name = null!;
         city.IsoCode = "TUPD";
-        Country country = _unitOfWork!.Country.GetById(0)!;
+        Country country = _unitOfWork!.CountryRepository.GetById(0)!;
 
         Assert.Throws<DbUpdateException>(() =>
         {
             _repository.Update(city);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -121,7 +117,5 @@ public class CityRepositoryTests : BaseRepositoryTests<City>
             _repository.Delete(city);
             _unitOfWork!.SaveChanges();
         });
-
-        _unitOfWork!.RevertChanges();
     }
 }
