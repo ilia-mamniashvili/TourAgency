@@ -50,6 +50,11 @@ namespace Repositories
             return _context.SaveChanges();
         }
 
+        public void RevertChanges()
+        {
+            _context.ChangeTracker.Clear();
+        }
+
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();
@@ -98,7 +103,7 @@ namespace Repositories
 
         }
 
-        public void RollBack()
+        public void Rollback()
         {
             if (_transaction == null)
                 throw new ArgumentException("Transaction is not started");

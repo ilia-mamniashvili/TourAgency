@@ -9,6 +9,10 @@ namespace Repositories.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         int SaveChanges();
+        void RevertChanges();
+        void BeginTransaction();
+        void Commit();
+        void Rollback();
 
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess);

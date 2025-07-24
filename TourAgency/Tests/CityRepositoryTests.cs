@@ -40,7 +40,7 @@ namespace Tests
         {
             City city = new()
             {
-                Name = null,
+                Name = null!,
                 IsoCode = "TSTI",
                 Country = _unitOfWork!.Country.GetById(0)!,
                 Status = new EntityStatus()
@@ -51,6 +51,8 @@ namespace Tests
                 _repository!.Insert(city);
                 _unitOfWork.SaveChanges();
             });
+
+            _unitOfWork!.RevertChanges();
         }
 
         [Test]
@@ -61,7 +63,7 @@ namespace Tests
 
             city.Name = "Updated Name";
             city.IsoCode = "UPD";
-            city.Country.Id = 1;
+            city.Country = _unitOfWork!.Country.GetById(1)!;
             _repository.Update(city);
             _unitOfWork!.SaveChanges();
 
@@ -77,7 +79,7 @@ namespace Tests
         {
             City city = _repository!.GetById(Constants.UpdateTestID)!;
             Assert.IsNotNull(city);
-            city.Name = null;
+            city.Name = null!;
             city.IsoCode = "TUPD";
             Country country = _unitOfWork!.Country.GetById(0)!;
 
@@ -86,6 +88,8 @@ namespace Tests
                 _repository.Update(city);
                 _unitOfWork!.SaveChanges();
             });
+
+            _unitOfWork!.RevertChanges();
         }
 
         [Test]
@@ -117,6 +121,8 @@ namespace Tests
                 _repository.Delete(city);
                 _unitOfWork!.SaveChanges();
             });
+
+            _unitOfWork!.RevertChanges();
         }
     }
 }

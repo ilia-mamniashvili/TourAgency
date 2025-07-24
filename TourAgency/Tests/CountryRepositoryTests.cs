@@ -43,8 +43,8 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
     {
         Country country = new()
         {
-            Name = null,
-            IsoCode = "STSSS",
+            Name = null!,
+            IsoCode = "STS",
             Flag = null,
             Status = new EntityStatus()
         };
@@ -54,6 +54,8 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
             _repository!.Insert(country);
             _unitOfWork!.SaveChanges();
         });
+
+        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -79,7 +81,7 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
         Country country = _repository!.GetById(Constants.UpdateTestID)!;
         Assert.IsNotNull(country);
 
-        country.Name = null;
+        country.Name = null!;
         country.IsoCode = "UPDT";
 
         Assert.Throws<DbUpdateException>(() =>
@@ -87,6 +89,8 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
             _repository.Update(country);
             _unitOfWork!.SaveChanges();
         });
+
+        _unitOfWork!.RevertChanges();
     }
 
     [Test]
@@ -118,5 +122,7 @@ public class CountryRepositoryTests : BaseRepositoryTests<Country>
             _repository.Delete(country);
             _unitOfWork!.SaveChanges();
         });
+
+        _unitOfWork!.RevertChanges();
     }
 }
