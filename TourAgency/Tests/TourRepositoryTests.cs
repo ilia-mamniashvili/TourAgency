@@ -87,11 +87,13 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
         tour.Name = null!; 
         tour.Description = "Updated Description";
         tour.TotalPrice = 600.00m;
+
         Assert.Throws<DbUpdateException>(() =>
         {
             _repository.Update(tour);
             _unitOfWork!.SaveChanges();
         });
+
         _unitOfWork!.RevertChanges();
     }
 
@@ -100,8 +102,10 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
     {
         Tour tour = _repository!.GetById(Constants.DeleteTestID)!;
         Assert.IsNotNull(tour);
+        
         _repository.Delete(tour);
         _unitOfWork!.SaveChanges();
+        
         Tour? deletedTour = _repository.GetById(Constants.DeleteTestID);
         Assert.IsNull(deletedTour);
     }
@@ -112,11 +116,13 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
         Tour tour = _repository!.GetById(Constants.DeleteTestID)!;
         Assert.IsNotNull(tour);
         tour.Name = null!; 
+        
         Assert.Throws<DbUpdateException>(() =>
         {
             _repository.Delete(tour);
             _unitOfWork!.SaveChanges();
         });
+        
         _unitOfWork!.RevertChanges();
     }
 }
