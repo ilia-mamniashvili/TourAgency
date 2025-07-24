@@ -21,8 +21,6 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
         {
             Name = "Test Tour",
             Description = "This is a test tour",
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(5),
             TotalPrice = 500.00m,
             Cities = null,
             Status = new EntityStatus()
@@ -86,7 +84,7 @@ public class TourRepositoryTests : BaseRepositoryTests<Tour>
     {
         Tour tour = _repository!.GetById(Constants.UpdateTestID)!;
         Assert.IsNotNull(tour);
-        tour.Name = null!; // Invalid name
+        tour.Name = null!; 
         tour.Description = "Updated Description";
         tour.TotalPrice = 600.00m;
         Assert.Throws<DbUpdateException>(() =>
