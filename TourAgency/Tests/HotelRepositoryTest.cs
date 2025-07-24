@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
 
 namespace Tests;
-internal class HotelRepositoryTest : BaseRepositoryTests<Hotel>
+public class HotelRepositoryTest : BaseRepositoryTests<Hotel>
 {
     private IHotelRepository? _repository;
 
